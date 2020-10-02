@@ -9,7 +9,7 @@
     <h4><a href="{%url "blog:post_share" post.id%}">Share this post</a></h4>
     {%with comments.count as total_comments%}
         <h3>
-            {{total_comments}} comment {{total_comments|pluralize}}
+            {{total_comments}} comment{{total_comments|pluralize}}
         </h3>
     {%endwith%}
 
