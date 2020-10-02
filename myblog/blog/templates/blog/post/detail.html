@@ -7,4 +7,31 @@
     <h5 class="date">Published on {{post.publish}} by {{post.author}}</h5>
     <p>{{post.body|linebreaks}}</p>
     <h4><a href="{%url "blog:post_share" post.id%}">Share this post</a></h4>
+    {%with comments.count as total_comments%}
+        <h3>
+            {{total_comments}} comment {{total_comments|pluralize}}
+        </h3>
+    {%endwith%}
+
+    {%for comment in comments%}
+        <div class="comment">
+            <h5 class="info">
+                Comment {{forloop.counter}} by {{comment.name}} {{comment.created}}
+            </h5>
+            <p>{{comment.body|linebreaks}}</p>
+        </div>
+    {%empty%}
+        <h5>There are no comments yet</h5>
+    {%endfor%}
+
+    {%if new_comment%}
+        <h3>Your comment has been added</h3>
+    {%else%}
+        <h3>Add a new comment</h3>
+        <form class="" method="post">
+            {{comment_form.as_ul}}
+            {%csrf_token%}
+            <input type="submit" name="" value="Add comment">
+        </form>
+    {%endif%}
 {%endblock%}
